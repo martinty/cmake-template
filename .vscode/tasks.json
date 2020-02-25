@@ -1,0 +1,186 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558 
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "windows": {
+        "command": "clang-cl",
+        "options": {
+            "env": {
+                "Path": "${env:Path};${env:VCINSTALLDIR}Tools/Llvm/bin"
+            }
+        }
+    },
+    "tasks": [
+        {
+            "label": "Create build, Debug and Release folder",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "windows": {
+                "command": "md",
+                "args": [
+                    "build\\Debug",
+                    "build\\Release"
+                ]
+            },
+            "linux": {
+                "command": "mkdir",
+                "args": [
+                    "-p",
+                    "build/Debug",
+                    "build/Release"
+                ]
+            },
+            "osx": {},
+            "problemMatcher": []
+        },
+        {
+            "label": "Delete build, Debug and Release folder",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "windows": {
+                "command": "rd",
+                "args": [
+                    "/s",
+                    "/q",
+                    "build"
+                ]
+            },
+            "linux": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "build"
+                ]
+            },
+            "osx": {},
+            "problemMatcher": []
+        },
+        {
+            "label": "CMake Debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "command": "cmake",
+            "windows": {
+                "args": [
+                    "-G",
+                    "NMake Makefiles",
+                    //"-DCMAKE_C_COMPILER=clang-cl",
+                    //"-DCMAKE_CXX_COMPILER=clang-cl",
+                    "-DCMAKE_BUILD_TYPE=Debug",
+                    ".."
+                ]
+            },
+            "linux": {
+                "args": [
+                    "-DCMAKE_C_COMPILER=/usr/bin/clang",
+                    "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
+                    "-DCMAKE_BUILD_TYPE=Debug",
+                    ".."
+                ]
+            },
+            "osx": {},
+            "problemMatcher": []
+        },
+        {
+            "label": "CMake Release",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "command": "cmake",
+            "windows": {
+                "args": [
+                    "-G",
+                    "NMake Makefiles",
+                    //"-DCMAKE_C_COMPILER=clang-cl",
+                    //"-DCMAKE_CXX_COMPILER=clang-cl",
+                    "-DCMAKE_BUILD_TYPE=Release",
+                    ".."
+                ]
+            },
+            "linux": {
+                "args": [
+                    "-DCMAKE_C_COMPILER=/usr/bin/clang",
+                    "-DCMAKE_CXX_COMPILER=/usr/bin/clang++",
+                    "-DCMAKE_BUILD_TYPE=Release",
+                    ".."
+                ]
+            },
+            "osx": {},
+            "problemMatcher": []
+        },
+        {
+            "label": "Make Debug",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "windows": {
+                "command": "nmake"
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "-j4"
+                ]
+            },
+            "osx": {},
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": "CMake Debug",
+            "problemMatcher": []
+        },
+        {
+            "label": "Make Release",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "windows": {
+                "command": "nmake"
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "-j4"
+                ]
+            },
+            "osx": {},
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": "CMake Release",
+            "problemMatcher": []
+        },
+        {
+            "label": "Make clean",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceRoot}/build"
+            },
+            "windows": {
+                "command": "nmake",
+                "args": [
+                    "clean"
+                ]
+            },
+            "linux": {
+                "command": "make",
+                "args": [
+                    "clean"
+                ]
+            },
+            "osx": {},
+            "problemMatcher": []
+        }
+    ]
+}

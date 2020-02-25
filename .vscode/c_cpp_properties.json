@@ -1,0 +1,56 @@
+{
+    "env": {
+        "tdt4102Path_win": "C:/Program Files/tdt4102",
+        "tdt4102IncludePath_win": [
+            "${tdt4102Path_win}/Graph_lib/include/*",
+            "${tdt4102Path_win}/FLTK-1.4/*"
+        ],
+        "tdt4102IncludePath_linux": [
+            "/usr/local/include/Graph_lib/*"
+        ],
+        "tdt4102IncludePath_mac": []
+    },
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${tdt4102IncludePath_win}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "NOGDI",
+                "_WINDOWS",
+                "WIN32",
+                "_CRT_SECURE_NO_WARNINGS"
+            ],
+            "compilerPath": "\"${env:VCINSTALLDIR}/Tools/MSVC/14.23.28105/bin/Hostx64/x64/cl.exe\"",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64",
+            "compilerArgs": [
+                "-m64"
+            ],
+            "windowsSdkVersion": "10.0.18362.0"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${tdt4102IncludePath_linux}"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Mac",
+            "includePath": []
+        }
+    ],
+    "version": 4
+}
